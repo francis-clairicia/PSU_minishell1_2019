@@ -5,7 +5,7 @@
 ** Append string into another
 */
 
-#include <my.h>
+#include "my.h"
 
 char *my_strcat(char *dest, char const *src)
 {

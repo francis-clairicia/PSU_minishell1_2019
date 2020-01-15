@@ -14,6 +14,8 @@ SRC			=	$(SRC_DIR)/minishell.c					\
 				$(SRC_DIR)/get_path_to_executable.c		\
 				$(SRC_DIR)/find_binary_in_path.c		\
 				$(SRC_DIR)/find_var_env.c				\
+				$(SRC_DIR)/get_var_value.c				\
+				$(SRC_DIR)/create_variable.c			\
 				$(SRC_DIR)/join_path.c					\
 				$(SRC_DIR)/error.c						\
 				$(SRC_DIR)/sigint_handler.c				\

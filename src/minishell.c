@@ -10,15 +10,21 @@
 static int launch_process(char const *binary, char **argv, char **envp)
 {
     int wstatus = 0;
-    int child_pid = fork();
+    int child_pid = 0;
 
+    if (binary == NULL)
+        return (0);
+    child_pid = fork();
     if (child_pid == 0) {
         execve(binary, argv, envp);
         return (1);
     }
     waitpid(child_pid, &wstatus, 0);
-    if (WIFSIGNALED(wstatus))
+    if (WIFSIGNALED(wstatus)) {
+        if (WTERMSIG(wstatus) != SIGINT)
+            my_putstr_error(strsignal(WTERMSIG(wstatus)));
         my_putchar('\n');
+    }
     return (0);
 }
 
@@ -26,16 +32,16 @@ int minishell(char **command, char ***envp)
 {
     char *path_to_executable = NULL;
     int status = 0;
+    builtin_function_t builtin = NULL;
 
-    if (command == NULL)
+    if (command == NULL || my_strcmp(command[0], "exit") == 0)
         return (1);
-    if (my_strcmp(command[0], "exit") == 0)
-        return (1);
-    if (is_a_builtin_function(command, envp))
-        return (0);
+    builtin = is_builtin(command);
+    if (builtin != NULL) {
+        builtin(my_array_len(command), command, envp);
+        return (status);
+    }
     path_to_executable = get_path_to_executable(command[0], *envp);
-    if (path_to_executable == NULL)
-        return (0);
     bind_sigint_signal(PROCESS);
     status = launch_process(path_to_executable, command, *envp);
     free(path_to_executable);

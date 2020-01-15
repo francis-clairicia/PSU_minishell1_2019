@@ -44,6 +44,7 @@ int my_str_isnum(char const *str);
 int my_str_islower(char const *str);
 int my_str_isupper(char const *str);
 int my_str_isprintable(char const *str);
+int my_str_isalphanum(char const *str);
 int my_showstr(char const *str);
 int my_showmem(char const *str, int size);
 char *my_strcat(char *dest, char const *src);
@@ -58,6 +59,7 @@ char *convert_base(char const *nbr, char const *base_from, char const *base_to);
 char *open_file(char const *filepath, int (*error)(char const *));
 int get_next_line(char **line, int fd);
 
+int char_is_alphanum(char c);
 int index_of_first_digit(char const *str);
 int index_of_first_digit_base(char const *str, char const *base);
 int negative_nb(char const *str, int index_first);

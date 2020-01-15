@@ -11,7 +11,7 @@ void env_builtin_command(int ac, char **av, char ***envp)
 {
     int i = 0;
 
-    if (ac > 1 && av[1] == NULL) {
+    if (ac > 1 && av[1] != NULL) {
         print_error("env", "Too many arguments");
         return;
     }

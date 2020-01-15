@@ -71,6 +71,8 @@ char **my_str_to_word_array(char const *str, char separator)
     if (str == NULL)
         return (NULL);
     str = skip_first_separators(str, separator);
+    if (my_strlen(str) == 0)
+        return (NULL);
     nb_words = get_nb_words(str, separator);
     array = malloc(sizeof(char *) * (nb_words + 1));
     if (array == NULL)

@@ -7,33 +7,47 @@
 
 #include "minishell.h"
 
-static void print_current_directory(char const *cwd)
+void print_user(char **envp)
 {
-    char home_path[] = "/home/";
+    char *user = get_var_value(envp, find_var_env(envp, "USER"));
+    char *hostname = get_var_value(envp, find_var_env(envp, "HOSTNAME"));
+    int i = 0;
+
+    if (user == NULL || hostname == NULL)
+        return;
+    my_putstr(user);
+    my_putchar('@');
+    while (hostname[i] != '\0' && hostname[i] != '.') {
+        my_putchar(hostname[i]);
+        i += 1;
+    }
+}
+
+void print_current_directory(char const *cwd, char **envp)
+{
+    char *home_path = get_var_value(envp, find_var_env(envp, "HOME"));
     int len_home_path = my_strlen(home_path);
 
-    if (my_strncmp(cwd, home_path, len_home_path) != 0) {
-        my_putstr(cwd);
+    if (cwd == NULL)
         return;
+    if (my_strncmp(cwd, home_path, len_home_path) == 0) {
+        my_putstr("~");
+        cwd = &cwd[len_home_path];
+        if (my_find_char(cwd, '/') < 0)
+            return;
+        cwd = &cwd[my_find_char(cwd, '/') + 1];
+        if (my_strlen(cwd) == 0)
+            return;
+        my_putstr("/");
     }
-    my_putstr("~");
-    cwd = &cwd[len_home_path];
-    if (my_find_char(cwd, '/') < 0)
-        return;
-    cwd = &cwd[my_find_char(cwd, '/') + 1];
-    if (my_strlen(cwd) == 0)
-        return;
-    my_putstr("/");
     my_putstr(cwd);
 }
 
-void print_command_prompt(void)
+void print_command_prompt(char const *cwd, char **envp)
 {
-    char current_directory[4097];
-
-    if (getcwd(current_directory, 4096) == NULL)
-        return;
     my_putstr("[");
-    print_current_directory(current_directory);
+    print_user(envp);
+    my_putchar(' ');
+    print_current_directory(cwd, envp);
     my_putstr("]$ ");
 }

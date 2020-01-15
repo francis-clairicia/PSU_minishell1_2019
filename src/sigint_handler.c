@@ -9,8 +9,12 @@
 
 void sigint_handler_for_prompt(int signum)
 {
+    char current_directory[4097];
+
+    if (signum != SIGINT)
+        return;
     my_putstr("\n");
-    print_command_prompt();
+    print_command_prompt(getcwd(current_directory, 4097), __environ);
 }
 
 void sigint_handler_for_process(int signum)
@@ -19,12 +23,12 @@ void sigint_handler_for_process(int signum)
     kill(getpid(), signum);
 }
 
-void bind_sigint_signal(enum SIGINT_HANDLER_FUNCTION func)
+sighandler_t bind_sigint_signal(enum SIGINT_HANDLER_FUNCTION func)
 {
     void (*sigint_handler[])(int signum) = {
         sigint_handler_for_prompt,
         sigint_handler_for_process
     };
 
-    signal(SIGINT, sigint_handler[func]);
+    return (signal(SIGINT, sigint_handler[func]));
 }

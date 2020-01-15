@@ -25,7 +25,7 @@ void unsetenv_builtin_command(int ac, char **av, char ***envp)
     int i = 1;
 
     if (ac < 2) {
-        print_error("unsetenv", "Not enought arguments");
+        print_error("unsetenv", "Too few arguments");
         return;
     }
     while (i < ac) {

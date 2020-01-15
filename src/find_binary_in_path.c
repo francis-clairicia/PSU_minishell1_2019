@@ -13,15 +13,15 @@ static char *free_and_returns(char **word_array, char *str)
     return (str);
 }
 
-char *find_binary_in_path(char const *binary, char const *path_variable)
+char *find_binary_in_path(char const *binary, char **envp)
 {
-    int equal = my_find_char(path_variable, 61);
-    char **path_list = my_str_to_word_array(&path_variable[equal + 1], ':');
+    char *path_variable = get_var_value(envp, find_var_env(envp, "PATH"));
+    char **path_list = my_str_to_word_array(path_variable, ':');
     char *path_concat = NULL;
     int i = 0;
 
     if (path_list == NULL)
-        return (0);
+        return (NULL);
     while (path_list[i] != NULL) {
         path_concat = join_path(path_list[i], binary);
         if (path_concat != NULL && access(path_concat, F_OK) == 0)

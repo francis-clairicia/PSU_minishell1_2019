@@ -20,6 +20,7 @@ SRC	=	my_put_nbr.c				\
 		my_strcapitalize.c			\
 		my_strncpy.c				\
 		my_str_isalpha.c			\
+		my_str_isalphanum.c			\
 		my_strcat.c					\
 		my_compute_square_root.c	\
 		my_is_prime.c				\

@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-const int READ_SIZE = 1024;
+const int READ_SIZE = 4096;
 
 static int my_strlen_with_limit(char const *str, char limit)
 {

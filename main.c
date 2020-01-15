@@ -7,6 +7,15 @@
 
 #include "minishell.h"
 
+static int print_help(void)
+{
+    my_putstr("USAGE\n");
+    my_putstr("\t./mysh\n\n");
+    my_putstr("DESCRIPTION\n");
+    my_putstr("\tA C-coded minishell\n");
+    return (0);
+}
+
 static char **copy_environment(char *envp[])
 {
     int i = 0;
@@ -28,8 +37,10 @@ static char **copy_environment(char *envp[])
 
 static int command_prompt(char **line)
 {
+    char current_directory[4097];
+
     bind_sigint_signal(PROMPT);
-    print_command_prompt();
+    print_command_prompt(getcwd(current_directory, 4097), __environ);
     if (!get_next_line(line, 0)) {
         my_putstr("exit\n");
         return (0);
@@ -41,9 +52,12 @@ int main(int ac, char **av, char **envp)
 {
     char *cmd_line = NULL;
     char **cmd = NULL;
-    char **new_envp = copy_environment(envp);
+    char **new_envp = NULL;
     int stop_shell = 0;
 
+    if (ac > 1 && my_strcmp(av[1], "-h") == 0)
+        return (print_help());
+    new_envp = copy_environment(envp);
     if (new_envp == NULL)
         return (84);
     while (!stop_shell && command_prompt(&cmd_line)) {

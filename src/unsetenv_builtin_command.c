@@ -20,16 +20,19 @@ static void remove_var(char **envp, int var_index)
     }
 }
 
-void unsetenv_builtin_command(int ac, char **av, char ***envp)
+int unsetenv_builtin_command(int ac, char **av, char ***envp)
 {
     int i = 1;
 
     if (ac < 2) {
         print_error("unsetenv", "Too few arguments");
-        return;
+        return (0);
     }
+    if (envp == NULL || *envp == NULL)
+        return (0);
     while (i < ac) {
         remove_var(*envp, find_var_env(*envp, av[i]));
         i += 1;
     }
+    return (0);
 }

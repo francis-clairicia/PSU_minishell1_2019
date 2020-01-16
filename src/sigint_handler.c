@@ -19,11 +19,12 @@ void sigint_handler_for_prompt(int signum)
 
 void sigint_handler_for_process(int signum)
 {
-    signum = SIGCHLD;
-    kill(getpid(), signum);
+    if (signum == SIGINT)
+        kill(getpid(), SIGCHLD);
+    my_putstr_error("\n");
 }
 
-sighandler_t bind_sigint_signal(enum SIGINT_HANDLER_FUNCTION func)
+sighandler_t bind_sigint_signal(int func)
 {
     void (*sigint_handler[])(int signum) = {
         sigint_handler_for_prompt,

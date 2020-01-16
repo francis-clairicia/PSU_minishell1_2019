@@ -20,7 +20,7 @@
 
 int kill(pid_t pid, int sig);
 
-typedef void (*builtin_function_t)(int argc, char **argv, char ***envp);
+typedef int (*builtin_function_t)(int argc, char **argv, char ***envp);
 typedef __sighandler_t sighandler_t;
 
 enum SIGINT_HANDLER_FUNCTION
@@ -35,7 +35,8 @@ struct builtin
     builtin_function_t function;
 };
 
-int minishell(char **command, char ***envp);
+int minishell(char const *command_line, char ***envp);
+void print_command_prompt(char const *cwd, char **envp);
 char *get_path_to_executable(char const *binary, char **envp);
 char *join_path(char const *path_1, char const *path_2);
 char *find_binary_in_path(char const *binary, char **envp);
@@ -44,16 +45,17 @@ char *get_var_value(char **envp, int index);
 char *create_variable(char const *variable, char const *value);
 builtin_function_t is_builtin(char **cmd);
 
-void cd_builtin_command(int ac, char **av, char ***envp);
-void env_builtin_command(int ac, char **av, char ***envp);
-void setenv_builtin_command(int ac, char **av, char ***envp);
-void unsetenv_builtin_command(int ac, char **av, char ***envp);
+int cd_builtin_command(int ac, char **av, char ***envp);
+int env_builtin_command(int ac, char **av, char ***envp);
+int exit_builtin_command(int ac, char **av, char ***envp);
+int setenv_builtin_command(int ac, char **av, char ***envp);
+int unsetenv_builtin_command(int ac, char **av, char ***envp);
 
-void print_command_prompt(char const *cwd, char **envp);
-void print_current_directory(char const *cwd, char **envp);
-void print_user(char **envp);
 
-sighandler_t bind_sigint_signal(enum SIGINT_HANDLER_FUNCTION func);
+sighandler_t bind_sigint_signal(int func);
+void sigint_handler_for_prompt(int signum);
+void sigint_handler_for_process(int signum);
+
 void print_error(char const *filepath, char const *error);
 
 #endif

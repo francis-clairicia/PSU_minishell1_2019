@@ -20,9 +20,7 @@ char *find_binary_in_path(char const *binary, char **envp)
     char *path_concat = NULL;
     int i = 0;
 
-    if (path_list == NULL)
-        return (NULL);
-    while (path_list[i] != NULL) {
+    while (binary != NULL && path_list != NULL && path_list[i] != NULL) {
         path_concat = join_path(path_list[i], binary);
         if (path_concat != NULL && access(path_concat, F_OK) == 0)
             return (free_and_returns(path_list, path_concat));

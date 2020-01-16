@@ -20,18 +20,17 @@ static void go_to_default_home_path(char **envp)
         print_error(home_path, strerror(errno));
 }
 
-void cd_builtin_command(int argc, char **argv, char ***envp)
+int cd_builtin_command(int argc, char **argv, char ***envp)
 {
-    if (envp == NULL || *envp == NULL)
-        return;
     if (argc > 2) {
         print_error("cd", "Too many arguments");
-        return;
+        return (0);
     }
-    if (argc == 1) {
+    if (envp == NULL || *envp == NULL)
+        return (0);
+    if (argc == 1)
         go_to_default_home_path(*envp);
-        return;
-    }
-    if (chdir(argv[1]) < 0)
+    else if (chdir(argv[1]) < 0)
         print_error(argv[1], strerror(errno));
+    return (0);
 }

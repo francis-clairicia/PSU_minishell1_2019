@@ -45,13 +45,14 @@ static int command_prompt(char **line)
         my_putstr("exit\n");
         return (0);
     }
+    if (my_strlen(*line) == 0)
+        return (0);
     return (1);
 }
 
 int main(int ac, char **av, char **envp)
 {
-    char *cmd_line = NULL;
-    char **cmd = NULL;
+    char *cmd = NULL;
     char **new_envp = NULL;
     int stop_shell = 0;
 
@@ -60,12 +61,10 @@ int main(int ac, char **av, char **envp)
     new_envp = copy_environment(envp);
     if (new_envp == NULL)
         return (84);
-    while (!stop_shell && command_prompt(&cmd_line)) {
-        if (my_strlen(cmd_line) == 0)
-            continue;
-        cmd = my_str_to_word_array(cmd_line, ' ');
+    while (!stop_shell && command_prompt(&cmd)) {
         stop_shell = minishell(cmd, &new_envp);
-        my_free_word_array(cmd);
+        if (new_envp == NULL)
+            stop_shell = 1;
     }
     my_free_word_array(new_envp);
     return (0);

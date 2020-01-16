@@ -10,6 +10,7 @@
 static const struct builtin builtin_functions_list[] = {
     {"cd", cd_builtin_command},
     {"env", env_builtin_command},
+    {"exit", exit_builtin_command},
     {"setenv", setenv_builtin_command},
     {"unsetenv", unsetenv_builtin_command},
     {NULL, NULL}

@@ -22,6 +22,7 @@ SRC			=	$(SRC_DIR)/minishell.c					\
 				$(SRC_DIR)/builtin_functions.c			\
 				$(SRC_DIR)/cd_builtin_command.c			\
 				$(SRC_DIR)/env_builtin_command.c		\
+				$(SRC_DIR)/exit_builtin_command.c		\
 				$(SRC_DIR)/setenv_builtin_command.c		\
 				$(SRC_DIR)/unsetenv_builtin_command.c
 

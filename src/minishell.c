@@ -20,30 +20,31 @@ static int launch_process(char const *binary, char **argv, char **envp)
         return (1);
     }
     waitpid(child_pid, &wstatus, 0);
-    if (WIFSIGNALED(wstatus)) {
-        if (WTERMSIG(wstatus) != SIGINT)
-            my_putstr_error(strsignal(WTERMSIG(wstatus)));
-        my_putchar('\n');
+    if (WIFSIGNALED(wstatus) && WTERMSIG(wstatus) != SIGINT) {
+        my_putstr_error(strsignal(WTERMSIG(wstatus)));
+        my_putstr_error("\n");
     }
     return (0);
 }
 
-int minishell(char **command, char ***envp)
+int minishell(char const *command_line, char ***envp)
 {
     char *path_to_executable = NULL;
     int status = 0;
     builtin_function_t builtin = NULL;
+    char **command = my_str_to_word_array(command_line, ' ');
 
-    if (command == NULL || my_strcmp(command[0], "exit") == 0)
+    if (command == NULL)
         return (1);
     builtin = is_builtin(command);
     if (builtin != NULL) {
-        builtin(my_array_len(command), command, envp);
-        return (status);
+        status = builtin(my_array_len(command), command, envp);
+    } else {
+        path_to_executable = get_path_to_executable(command[0], *envp);
+        bind_sigint_signal(PROCESS);
+        status = launch_process(path_to_executable, command, *envp);
+        free(path_to_executable);
     }
-    path_to_executable = get_path_to_executable(command[0], *envp);
-    bind_sigint_signal(PROCESS);
-    status = launch_process(path_to_executable, command, *envp);
-    free(path_to_executable);
+    my_free_word_array(command);
     return (status);
 }

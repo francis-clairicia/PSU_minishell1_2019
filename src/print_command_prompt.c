@@ -7,23 +7,23 @@
 
 #include "minishell.h"
 
-void print_user(char **envp)
+static void print_user(char **envp)
 {
     char *user = get_var_value(envp, find_var_env(envp, "USER"));
     char *hostname = get_var_value(envp, find_var_env(envp, "HOSTNAME"));
-    int i = 0;
+    int dot = my_find_char(hostname, '.');
 
     if (user == NULL || hostname == NULL)
         return;
     my_putstr(user);
     my_putchar('@');
-    while (hostname[i] != '\0' && hostname[i] != '.') {
-        my_putchar(hostname[i]);
-        i += 1;
-    }
+    if (dot < 0)
+        my_putstr(hostname);
+    else
+        write(1, hostname, dot);
 }
 
-void print_current_directory(char const *cwd, char **envp)
+static void print_current_directory(char const *cwd, char **envp)
 {
     char *home_path = get_var_value(envp, find_var_env(envp, "HOME"));
     int len_home_path = my_strlen(home_path);

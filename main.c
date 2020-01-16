@@ -35,6 +35,19 @@ static char **copy_environment(char *envp[])
     return (envp_copy);
 }
 
+static void set_shell_env(char ***envp, char const *binary_name)
+{
+    char current_dir[4097];
+    char *cmd[] = {"setenv", "SHELL", "", NULL};
+
+    if (binary_name[0] != '/')
+        cmd[2] = join_path(getcwd(current_dir, 4097), &binary_name[2]);
+    else
+        cmd[2] = my_strdup(binary_name);
+    setenv_builtin_command(3, cmd, envp);
+    free(cmd[2]);
+}
+
 static int command_prompt(char **line)
 {
     char current_directory[4097];
@@ -61,11 +74,13 @@ int main(int ac, char **av, char **envp)
     new_envp = copy_environment(envp);
     if (new_envp == NULL)
         return (84);
+    set_shell_env(&new_envp, av[0]);
     while (!stop_shell && command_prompt(&cmd)) {
         stop_shell = minishell(cmd, &new_envp);
         if (new_envp == NULL)
             stop_shell = 1;
     }
+    free(cmd);
     my_free_word_array(new_envp);
     return (0);
 }

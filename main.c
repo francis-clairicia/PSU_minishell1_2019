@@ -59,7 +59,7 @@ static int command_prompt(char **line)
         return (0);
     }
     if (my_strlen(*line) == 0)
-        return (0);
+        return (command_prompt(line));
     return (1);
 }
 

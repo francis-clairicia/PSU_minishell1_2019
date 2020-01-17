@@ -14,7 +14,6 @@
 #include <signal.h>
 #include <string.h>
 #include <errno.h>
-#include <dirent.h>
 #include <unistd.h>
 #include "my.h"
 

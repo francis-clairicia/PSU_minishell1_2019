@@ -18,9 +18,10 @@ int get_nb_words(char const *str, char separator)
             i += 1;
             continue;
         }
-        nb += 1;
         while (str[i] != '\0' && str[i] == separator)
             i += 1;
+        if (str[i] != '\0')
+            nb += 1;
     }
     return (nb);
 }

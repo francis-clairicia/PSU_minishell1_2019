@@ -27,7 +27,7 @@ static int launch_process(char const *binary, char **argv, char **envp)
     return (0);
 }
 
-int minishell(char const *command_line, char ***envp)
+static int exec_shell_command(char const *command_line, char ***envp)
 {
     char *path_to_executable = NULL;
     int status = 0;
@@ -44,6 +44,22 @@ int minishell(char const *command_line, char ***envp)
         bind_sigint_signal(PROCESS);
         status = launch_process(path_to_executable, command, *envp);
         free(path_to_executable);
+    }
+    my_free_word_array(command);
+    return (status);
+}
+
+int minishell(char const *command_line, char ***envp)
+{
+    int i = 0;
+    int status = 0;
+    char **command = my_str_to_word_array(command_line, 59);
+
+    if (command == NULL)
+        return (1);
+    while (status == 0 && command[i] != NULL) {
+        status = exec_shell_command(command[i], envp);
+        i += 1;
     }
     my_free_word_array(command);
     return (status);

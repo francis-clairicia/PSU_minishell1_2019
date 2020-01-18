@@ -15,7 +15,7 @@ char *get_var_value(char **envp, int index)
         return (NULL);
     if (index < 0 || index >= my_array_len(envp))
         return (NULL);
-    equal_index = my_find_char(envp[index], 61);
+    equal_index = my_find_char(envp[index], '=');
     if (equal_index < 0)
         return (NULL);
     return (&(envp[index][equal_index + 1]));

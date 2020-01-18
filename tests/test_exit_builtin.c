@@ -10,8 +10,10 @@
 
 Test(exit_builtin_command, close_the_minishell)
 {
-    cr_expect_eq(minishell("exit", &__environ), 1);
-    cr_expect_eq(minishell("exit YO", &__environ), 1);
-    cr_expect_eq(minishell("exit YO RE", &__environ), 1);
+    char **envp = DEFAULT_ENVIRONMENT;
+
+    cr_expect_eq(minishell("exit", &envp), 1);
+    cr_expect_eq(minishell("exit YO", &envp), 1);
+    cr_expect_eq(minishell("exit YO RE", &envp), 1);
     cr_expect_eq(minishell("exit", NULL), 1);
 }

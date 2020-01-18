@@ -10,11 +10,9 @@
 
 Test(create_variable, create_a_new_variable_for_the_env)
 {
-    char result[] = "USER 2";
     char *variable = create_variable("USER", "2");
 
-    result[4] = 61;
-    cr_expect_str_eq(variable, result);
+    cr_expect_str_eq(variable, "USER=2");
     free(variable);
 }
 

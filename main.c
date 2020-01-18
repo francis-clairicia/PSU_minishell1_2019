@@ -40,6 +40,8 @@ static void set_shell_env(char ***envp, char const *binary_name)
     char current_dir[4097];
     char *cmd[] = {"setenv", "SHELL", "", NULL};
 
+    if (find_var_env(*envp, "SHELL") < 0)
+        return;
     if (binary_name[0] != '/')
         cmd[2] = join_path(getcwd(current_dir, 4097), &binary_name[2]);
     else
@@ -53,7 +55,7 @@ static int command_prompt(char **line)
     char current_directory[4097];
 
     bind_sigint_signal(PROMPT);
-    print_command_prompt(getcwd(current_directory, 4097), __environ);
+    print_command_prompt(getcwd(current_directory, 4097), DEFAULT_ENVIRONMENT);
     if (!get_next_line(line, 0)) {
         my_putstr("exit\n");
         return (0);
@@ -63,24 +65,24 @@ static int command_prompt(char **line)
     return (1);
 }
 
-int main(int ac, char **av, char **envp)
+int main(int ac, char **av)
 {
     char *cmd = NULL;
-    char **new_envp = NULL;
+    char **envp = NULL;
     int stop_shell = 0;
 
     if (ac > 1 && my_strcmp(av[1], "-h") == 0)
         return (print_help());
-    new_envp = copy_environment(envp);
-    if (new_envp == NULL)
+    envp = copy_environment(DEFAULT_ENVIRONMENT);
+    if (envp == NULL)
         return (84);
-    set_shell_env(&new_envp, av[0]);
+    set_shell_env(&envp, av[0]);
     while (!stop_shell && command_prompt(&cmd)) {
-        stop_shell = minishell(cmd, &new_envp);
-        if (new_envp == NULL)
+        stop_shell = minishell(cmd, &envp);
+        if (envp == NULL)
             stop_shell = 1;
     }
     free(cmd);
-    my_free_word_array(new_envp);
+    my_free_word_array(envp);
     return (0);
 }

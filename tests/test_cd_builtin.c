@@ -13,13 +13,14 @@ Test(cd_builtin_command, change_the_current_working_directory)
 {
     char save_actual_dir[4097];
     char current_dir[4097];
+    char **envp = DEFAULT_ENVIRONMENT;
 
     cr_redirect_stderr();
     cr_assert_not_null(getcwd(save_actual_dir, 4097));
-    minishell("cd /", &__environ);
+    minishell("cd /", &envp);
     cr_expect_str_eq(getcwd(current_dir, 4097), "/");
     chdir(save_actual_dir);
-    minishell("cd unknown_dir", &__environ);
+    minishell("cd unknown_dir", &envp);
     cr_expect_stderr_eq_str("unknown_dir: No such file or directory.\n");
 }
 
@@ -27,11 +28,12 @@ Test(cd_builtin_command, move_to_home_path_when_no_args)
 {
     char save_actual_dir[4097];
     char current_dir[4097];
-    int home_index = find_var_env(__environ, "HOME");
-    char *home_path = get_var_value(__environ, home_index);
+    char **envp = DEFAULT_ENVIRONMENT;
+    int home_index = find_var_env(envp, "HOME");
+    char *home_path = get_var_value(envp, home_index);
 
     cr_assert_not_null(getcwd(save_actual_dir, 4097));
-    minishell("cd", &__environ);
+    minishell("cd", &envp);
     cr_expect_str_eq(getcwd(current_dir, 4097), home_path);
     chdir(save_actual_dir);
 }

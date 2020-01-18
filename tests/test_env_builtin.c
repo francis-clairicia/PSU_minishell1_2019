@@ -11,26 +11,20 @@
 
 Test(env_builtin_command, print_environment)
 {
-    char result[] = "YO 2\n";
     char **envp = NULL;
 
-    result[2] = 61;
     cr_redirect_stdout();
     minishell("setenv YO 2", &envp);
     minishell("env", &envp);
-    cr_expect_stdout_eq_str(result);
+    cr_expect_stdout_eq_str("YO=2\n");
     my_free_word_array(envp);
 }
 
 Test(env_builtin_command, handle_args)
 {
-    char **envp = NULL;
-
     cr_redirect_stderr();
-    minishell("setenv YO 2", &envp);
-    minishell("env -i", &envp);
+    minishell("env -i", NULL);
     cr_expect_stderr_eq_str("env: Too many arguments.\n");
-    my_free_word_array(envp);
 }
 
 Test(env_builtin_command, handle_null_env)

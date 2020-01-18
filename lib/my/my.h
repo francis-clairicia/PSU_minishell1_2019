@@ -27,7 +27,7 @@ int my_compute_power_rec(int nb, int p);
 int my_compute_square_root(int nb);
 int my_is_prime(int nb);
 int my_find_prime_sup(int nb);
-char **my_str_to_word_array(char const *str, char separator);
+char **my_str_to_word_array(char const *str, char const *separators);
 void my_free_word_array(char **array);
 int my_array_len(char * const *array);
 char *my_strcpy(char *dest, char const *src);

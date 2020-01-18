@@ -32,7 +32,7 @@ static int exec_shell_command(char const *command_line, char ***envp)
     char *path_to_executable = NULL;
     int status = 0;
     builtin_function_t builtin = NULL;
-    char **command = my_str_to_word_array(command_line, ' ');
+    char **command = my_str_to_word_array(command_line, " \t");
 
     if (command == NULL)
         return (1);
@@ -53,7 +53,7 @@ int minishell(char const *command_line, char ***envp)
 {
     int i = 0;
     int status = 0;
-    char **command = my_str_to_word_array(command_line, 59);
+    char **command = my_str_to_word_array(command_line, ";");
 
     if (command == NULL)
         return (1);

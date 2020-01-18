@@ -22,6 +22,8 @@ int kill(pid_t pid, int sig);
 typedef int (*builtin_function_t)(int argc, char **argv, char ***envp);
 typedef __sighandler_t sighandler_t;
 
+#define DEFAULT_ENVIRONMENT __environ
+
 enum SIGINT_HANDLER_FUNCTION
 {
     PROMPT,

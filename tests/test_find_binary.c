@@ -11,7 +11,7 @@
 
 Test(find_binary_in_path, find_out_a_binary_in_path_environment)
 {
-    char *path = find_binary_in_path("ls", __environ);
+    char *path = find_binary_in_path("ls", DEFAULT_ENVIRONMENT);
 
     cr_assert_not_null(path);
     cr_expect_str_eq(path, "/usr/bin/ls");
@@ -23,7 +23,7 @@ Test(find_binary_in_path, print_error_when_not_found)
     char *path = NULL;
 
     cr_redirect_stderr();
-    path = find_binary_in_path("unknown_bin", __environ);
+    path = find_binary_in_path("unknown_bin", DEFAULT_ENVIRONMENT);
     cr_expect_null(path);
     cr_expect_stderr_eq_str("unknown_bin: Command not found.\n");
 }
@@ -33,7 +33,7 @@ Test(find_binary_in_path, handle_null_binary)
     char *path = NULL;
 
     cr_redirect_stderr();
-    path = find_binary_in_path(NULL, __environ);
+    path = find_binary_in_path(NULL, DEFAULT_ENVIRONMENT);
     cr_expect_null(path);
     cr_expect_stderr_eq_str("NULL: Command not found.\n");
 }

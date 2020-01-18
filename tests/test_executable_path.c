@@ -11,8 +11,8 @@
 
 Test(get_path_to_executable, find_out_the_path_of_a_binary)
 {
-    char *path = get_path_to_executable("ls", __environ);
-    char *path_2 = get_path_to_executable("./mysh", __environ);
+    char *path = get_path_to_executable("ls", DEFAULT_ENVIRONMENT);
+    char *path_2 = get_path_to_executable("./mysh", DEFAULT_ENVIRONMENT);
 
     cr_assert_not_null(path);
     cr_assert_not_null(path_2);
@@ -29,8 +29,8 @@ Test(get_path_to_executable, print_error_when_command_not_found)
     char expected[] = "unknown: Command not found.\n./p: Command not found.\n";
 
     cr_redirect_stderr();
-    path = get_path_to_executable("unknown", __environ);
-    path_2 = get_path_to_executable("./p", __environ);
+    path = get_path_to_executable("unknown", DEFAULT_ENVIRONMENT);
+    path_2 = get_path_to_executable("./p", DEFAULT_ENVIRONMENT);
     cr_assert_null(path);
     cr_assert_null(path_2);
     cr_assert_stderr_eq_str(expected);
@@ -41,7 +41,7 @@ Test(get_path_to_executable, print_error_when_permission_denied)
     char *path = NULL;
 
     cr_redirect_stderr();
-    path = get_path_to_executable("./main.c", __environ);
+    path = get_path_to_executable("./main.c", DEFAULT_ENVIRONMENT);
     cr_assert_null(path);
     cr_assert_stderr_eq_str("./main.c: Permission denied.\n");
 }
@@ -51,7 +51,7 @@ Test(get_path_to_executable, print_error_when_its_a_directory)
     char *path = NULL;
 
     cr_redirect_stderr();
-    path = get_path_to_executable("./include/", __environ);
+    path = get_path_to_executable("./include/", DEFAULT_ENVIRONMENT);
     cr_assert_null(path);
     cr_assert_stderr_eq_str("./include/: Permission denied.\n");
 }

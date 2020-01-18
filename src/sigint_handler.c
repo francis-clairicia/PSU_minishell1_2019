@@ -14,7 +14,7 @@ void sigint_handler_for_prompt(int signum)
     if (signum != SIGINT)
         return;
     my_putstr("\n");
-    print_command_prompt(getcwd(current_directory, 4097), __environ);
+    print_command_prompt(getcwd(current_directory, 4097), DEFAULT_ENVIRONMENT);
 }
 
 void sigint_handler_for_process(int signum)

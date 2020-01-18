@@ -8,17 +8,29 @@
 #include <stdlib.h>
 #include "my.h"
 
-int get_nb_words(char const *str, char separator)
+static int is_separator(char c, char const *separators)
+{
+    int i = 0;
+
+    while (separators[i] != '\0') {
+        if (separators[i] == c)
+            return (1);
+        i += 1;
+    }
+    return (0);
+}
+
+int get_nb_words(char const *str, char const *separators)
 {
     int nb = 1;
     int i = 0;
 
     while (str[i] != '\0') {
-        if (str[i] != separator) {
+        if (!is_separator(str[i], separators)) {
             i += 1;
             continue;
         }
-        while (str[i] != '\0' && str[i] == separator)
+        while (str[i] != '\0' && is_separator(str[i], separators))
             i += 1;
         if (str[i] != '\0')
             nb += 1;
@@ -26,12 +38,12 @@ int get_nb_words(char const *str, char separator)
     return (nb);
 }
 
-int get_index_end_word(char const *str, char separator)
+int get_index_end_word(char const *str, char const *separators)
 {
     int i = 0;
 
     while (str[i] != '\0') {
-        if (str[i] != separator)
+        if (!is_separator(str[i], separators))
             i += 1;
         else
             break;
@@ -40,45 +52,38 @@ int get_index_end_word(char const *str, char separator)
 }
 
 void generate_array(char **array, char const *str,
-    int nb_words, char separator)
+    int nb_words, char const *separators)
 {
     int i = 0;
     int index_word;
 
     while (i < nb_words) {
-        index_word = get_index_end_word(str, separator);
+        index_word = get_index_end_word(str, separators);
         array[i] = my_strndup(str, index_word);
-        while (str[index_word] != '\0' && str[index_word] == separator)
+        while (str[index_word] != '\0'
+        && is_separator(str[index_word], separators))
             index_word += 1;
         str = &str[index_word];
         i += 1;
     }
 }
 
-char const *skip_first_separators(char const *str, char separator)
-{
-    int n = 0;
-
-    while ((n = my_find_char(str, separator)) == 0)
-        str = &str[n + 1];
-    return (str);
-}
-
-char **my_str_to_word_array(char const *str, char separator)
+char **my_str_to_word_array(char const *str, char const *separators)
 {
     int nb_words;
     char **array;
 
     if (str == NULL)
         return (NULL);
-    str = skip_first_separators(str, separator);
+    while (is_separator(str[0], separators))
+        str = &str[1];
     if (my_strlen(str) == 0)
         return (NULL);
-    nb_words = get_nb_words(str, separator);
+    nb_words = get_nb_words(str, separators);
     array = malloc(sizeof(char *) * (nb_words + 1));
     if (array == NULL)
         return (NULL);
-    generate_array(array, str, nb_words, separator);
+    generate_array(array, str, nb_words, separators);
     array[nb_words] = NULL;
     return (array);
 }

@@ -46,7 +46,7 @@ static void set_shell_env(char ***envp, char const *binary_name)
         cmd[2] = join_path(getcwd(current_dir, 4097), &binary_name[2]);
     else
         cmd[2] = my_strdup(binary_name);
-    setenv_builtin_command(3, cmd, envp);
+    setenv_builtin_command(cmd, envp);
     free(cmd[2]);
 }
 

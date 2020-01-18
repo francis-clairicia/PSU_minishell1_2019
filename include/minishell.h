@@ -19,7 +19,7 @@
 
 int kill(pid_t pid, int sig);
 
-typedef int (*builtin_function_t)(int argc, char **argv, char ***envp);
+typedef int (*builtin_function_t)(char **argv, char ***envp);
 typedef __sighandler_t sighandler_t;
 
 #define DEFAULT_ENVIRONMENT __environ
@@ -46,11 +46,11 @@ char *get_var_value(char **envp, int index);
 char *create_variable(char const *variable, char const *value);
 builtin_function_t is_builtin(char **cmd);
 
-int cd_builtin_command(int ac, char **av, char ***envp);
-int env_builtin_command(int ac, char **av, char ***envp);
-int exit_builtin_command(int ac, char **av, char ***envp);
-int setenv_builtin_command(int ac, char **av, char ***envp);
-int unsetenv_builtin_command(int ac, char **av, char ***envp);
+int cd_builtin_command(char **av, char ***envp);
+int env_builtin_command(char **av, char ***envp);
+int exit_builtin_command(char **av, char ***envp);
+int setenv_builtin_command(char **av, char ***envp);
+int unsetenv_builtin_command( char **av, char ***envp);
 
 
 sighandler_t bind_sigint_signal(int func);
@@ -58,5 +58,6 @@ void sigint_handler_for_prompt(int signum);
 void sigint_handler_for_process(int signum);
 
 void print_error(char const *filepath, char const *error);
+void print_signal(int signum);
 
 #endif

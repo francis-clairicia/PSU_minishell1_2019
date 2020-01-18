@@ -45,19 +45,13 @@ static void add_variable(char ***envp, char const *variable, char const *value)
     *envp = new_envp;
 }
 
-static void modify_variable(char **envp, int var_index, char const *variable,
-    char const *value)
+int setenv_builtin_command(char **av, char ***envp)
 {
-    free(envp[var_index]);
-    envp[var_index] = create_variable(variable, value);
-}
-
-int setenv_builtin_command(int ac, char **av, char ***envp)
-{
+    int ac = my_array_len(av);
     int var_index = 0;
 
     if (ac < 2)
-        return (env_builtin_command(1, (char *[]){"env", NULL}, envp));
+        return (env_builtin_command((char *[]){"env", NULL}, envp));
     else if (ac > 3) {
         print_error("setenv", "Too many arguments");
         return (0);
@@ -65,9 +59,11 @@ int setenv_builtin_command(int ac, char **av, char ***envp)
     if (!valid_arguments(av[1]))
         return (0);
     var_index = find_var_env(*envp, av[1]);
-    if (var_index < 0)
+    if (var_index < 0) {
         add_variable(envp, av[1], av[2]);
-    else
-        modify_variable(*envp, var_index, av[1], av[2]);
+    } else {
+        free((*envp)[var_index]);
+        (*envp)[var_index] = create_variable(av[1], av[2]);;
+    }
     return (0);
 }

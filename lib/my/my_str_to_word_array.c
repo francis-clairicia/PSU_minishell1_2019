@@ -12,6 +12,8 @@ static int is_separator(char c, char const *separators)
 {
     int i = 0;
 
+    if (separators == NULL)
+        return (0);
     while (separators[i] != '\0') {
         if (separators[i] == c)
             return (1);

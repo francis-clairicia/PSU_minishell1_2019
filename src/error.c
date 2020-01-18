@@ -14,3 +14,9 @@ void print_error(char const *filepath, char const *error)
     my_putstr_error(error);
     my_putstr_error(".\n");
 }
+
+void print_signal(int signum)
+{
+    my_putstr_error(strsignal(signum));
+    my_putstr_error("\n");
+}

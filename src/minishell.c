@@ -16,14 +16,14 @@ static int launch_process(char const *binary, char **argv, char **envp)
         return (0);
     child_pid = fork();
     if (child_pid == 0) {
-        execve(binary, argv, envp);
+        if (execve(binary, argv, envp) < 0)
+            print_error(argv[0], strerror(errno));
         return (1);
     }
-    waitpid(child_pid, &wstatus, 0);
-    if (WIFSIGNALED(wstatus) && WTERMSIG(wstatus) != SIGINT) {
-        my_putstr_error(strsignal(WTERMSIG(wstatus)));
-        my_putstr_error("\n");
-    }
+    if (waitpid(child_pid, &wstatus, 0) < 0)
+        return (0);
+    if (WIFSIGNALED(wstatus) && WTERMSIG(wstatus) != SIGINT)
+        print_signal(WTERMSIG(wstatus));
     return (0);
 }
 
@@ -32,13 +32,14 @@ static int exec_shell_command(char const *command_line, char ***envp)
     char *path_to_executable = NULL;
     int status = 0;
     builtin_function_t builtin = NULL;
-    char **command = my_str_to_word_array(command_line, " \t");
+    char separators[] = {' ', '\t', '\0'};
+    char **command = my_str_to_word_array(command_line, separators);
 
     if (command == NULL)
         return (1);
     builtin = is_builtin(command);
     if (builtin != NULL) {
-        status = builtin(my_array_len(command), command, envp);
+        status = builtin(command, envp);
     } else {
         path_to_executable = get_path_to_executable(command[0], *envp);
         bind_sigint_signal(PROCESS);

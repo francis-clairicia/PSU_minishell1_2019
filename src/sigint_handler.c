@@ -26,7 +26,7 @@ void sigint_handler_for_process(int signum)
 
 sighandler_t bind_sigint_signal(int func)
 {
-    void (*sigint_handler[])(int signum) = {
+    sighandler_t sigint_handler[] = {
         sigint_handler_for_prompt,
         sigint_handler_for_process
     };

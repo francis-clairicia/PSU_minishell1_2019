@@ -20,8 +20,9 @@ static void remove_var(char **envp, int var_index)
     }
 }
 
-int unsetenv_builtin_command(int ac, char **av, char ***envp)
+int unsetenv_builtin_command(char **av, char ***envp)
 {
+    int ac = my_array_len(av);
     int i = 1;
 
     if (ac < 2) {

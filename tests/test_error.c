@@ -15,3 +15,10 @@ Test(print_error, print_in_stderr)
     print_error("p", "n");
     cr_expect_stderr_eq_str("p: n.\n");
 }
+
+Test(print_signal, print_caught_signal)
+{
+    cr_redirect_stderr();
+    print_signal(SIGSEGV);
+    cr_expect_stderr_eq_str("Segmentation fault\n");
+}

@@ -7,11 +7,12 @@
 
 #include "minishell.h"
 
-int env_builtin_command(int ac, char **av, char ***envp)
+int env_builtin_command(char **av, char ***envp)
 {
+    int ac = my_array_len(av);
     int i = 0;
 
-    if (ac > 1 || av[1] != NULL) {
+    if (ac > 1) {
         print_error("env", "Too many arguments");
         return (0);
     }

@@ -40,8 +40,10 @@ Test(cd_builtin_command, move_to_home_path_when_no_args)
 
 Test(cd_builtin_command, print_error_when_too_many_arguments_are_given)
 {
+    char **envp = DEFAULT_ENVIRONMENT;
+
     cr_redirect_stderr();
-    minishell("cd / ~/Downloads", &__environ);
+    minishell("cd / ~/Downloads", &envp);
     cr_expect_stderr_eq_str("cd: Too many arguments.\n");
 }
 
@@ -50,8 +52,8 @@ Test(cd_builtin_command, handle_null_value)
     char **envp = NULL;
     char *cmd[] = {"cd", NULL};
 
-    cr_expect_eq(cd_builtin_command(1, cmd, NULL), 0);
-    cr_expect_eq(cd_builtin_command(1, cmd, &envp), 0);
+    cr_expect_eq(cd_builtin_command(cmd, NULL), 0);
+    cr_expect_eq(cd_builtin_command(cmd, &envp), 0);
 }
 
 Test(cd_builtin_command, handle_invalid_or_non_existing_home_folder)

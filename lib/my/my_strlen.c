@@ -5,7 +5,7 @@
 ** Find the lenght of a string
 */
 
-#include "my.h"
+#include <stddef.h>
 
 int my_strlen(char const *str)
 {

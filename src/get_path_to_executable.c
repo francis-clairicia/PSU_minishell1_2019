@@ -27,7 +27,7 @@ static int check_access(char const *filepath)
     return (1);
 }
 
-char *get_path_to_executable(char const *binary, char **envp)
+char *get_path_to_executable(char const *binary, char * const *envp)
 {
     char *filepath = NULL;
 

@@ -5,7 +5,7 @@
 ** Returns the size of a linked list
 */
 
-#include <mylist.h>
+#include "mylist.h"
 
 int my_list_size(list_t *begin)
 {

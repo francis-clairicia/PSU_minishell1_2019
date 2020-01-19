@@ -9,7 +9,6 @@
 #define HEADER_MY_LIST
 
 #include <stdlib.h>
-#include "my.h"
 
 typedef struct linked_list
 {

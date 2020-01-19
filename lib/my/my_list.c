@@ -5,8 +5,8 @@
 ** my_list.c
 */
 
-#include <mylist.h>
 #include <stdarg.h>
+#include "mylist.h"
 
 list_t *my_list(int nb_element, ...)
 {

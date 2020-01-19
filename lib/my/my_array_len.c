@@ -5,7 +5,7 @@
 ** my_array_len.c
 */
 
-#include "my.h"
+#include <stddef.h>
 
 int my_array_len(char * const *array)
 {

@@ -5,7 +5,7 @@
 ** Put letter in uppercase
 */
 
-#include <my.h>
+#include <stddef.h>
 
 char *my_strupcase(char *str)
 {

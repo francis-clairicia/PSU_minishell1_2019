@@ -7,7 +7,7 @@
 
 #include "mylist.h"
 
-list_t *search_node_by_beginning(list_t *begin, int index)
+static list_t *search_node_by_beginning(list_t *begin, int index)
 {
     int i = 0;
 
@@ -20,7 +20,7 @@ list_t *search_node_by_beginning(list_t *begin, int index)
     return (NULL);
 }
 
-list_t *search_node_by_end(list_t *last, int index)
+static list_t *search_node_by_end(list_t *last, int index)
 {
     int i = -1;
 

@@ -5,7 +5,11 @@
 ** Show string char
 */
 
-#include <my.h>
+int my_putchar(char c);
+
+int my_putstr(char const *str);
+
+int my_strlen(char const *str);
 
 void convert_to_hexa(char c, char *str)
 {
@@ -27,7 +31,7 @@ void convert_to_hexa(char c, char *str)
     str[1] = units;
 }
 
-void print_non_printable_char(char c)
+static void print_non_printable_char(char c)
 {
     char str[] = "00";
 

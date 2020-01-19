@@ -5,7 +5,7 @@
 ** Swap two numbers using their addresses
 */
 
-#include <my.h>
+#include <stddef.h>
 
 void my_swap(int *a, int *b)
 {

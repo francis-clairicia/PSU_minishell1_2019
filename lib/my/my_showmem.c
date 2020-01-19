@@ -5,7 +5,7 @@
 ** Show a memory dump
 */
 
-void my_putchar(char c);
+int my_putchar(char c);
 
 int my_putstr(char const *str);
 
@@ -15,7 +15,7 @@ int char_is_printable(char c);
 
 void convert_to_hexa(char c, char *str);
 
-void print_string(char const *str, int min, int size)
+static void print_string(char const *str, int min, int size)
 {
     int i = min;
 
@@ -29,7 +29,7 @@ void print_string(char const *str, int min, int size)
     }
 }
 
-void print_hexa(char const *str, int min, int size)
+static void print_hexa(char const *str, int min, int size)
 {
     int i = min;
     int j = 0;
@@ -53,7 +53,7 @@ void print_hexa(char const *str, int min, int size)
     }
 }
 
-void increase_address(char *address)
+static void increase_address(char *address)
 {
     int i = 6;
 

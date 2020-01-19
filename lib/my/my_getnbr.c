@@ -5,9 +5,11 @@
 ** Get a number in a string
 */
 
-#include <my.h>
+#include <stddef.h>
 
-int index_of_first_digit(char const *str)
+int my_strlen(char const *str);
+
+static int index_of_first_digit(char const *str)
 {
     int i = 0;
     int len = my_strlen(str);

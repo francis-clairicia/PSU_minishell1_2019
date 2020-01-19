@@ -5,7 +5,7 @@
 ** Char to str
 */
 
-#include <my.h>
+#include <stdlib.h>
 
 char *my_strdup_char(char c)
 {

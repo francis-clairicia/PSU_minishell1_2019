@@ -7,7 +7,7 @@
 
 #include "minishell.h"
 
-char *get_var_value(char **envp, int index)
+char *get_var_value(char * const *envp, int index)
 {
     int equal_index = 0;
 

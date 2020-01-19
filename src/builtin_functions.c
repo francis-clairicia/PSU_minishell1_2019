@@ -16,7 +16,7 @@ static const struct builtin builtin_functions_list[] = {
     {NULL, NULL}
 };
 
-builtin_function_t is_builtin(char **cmd)
+builtin_function_t is_builtin(char * const *cmd)
 {
     int i = 0;
 

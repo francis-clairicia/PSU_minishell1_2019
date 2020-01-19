@@ -5,7 +5,7 @@
 ** test if a string has only digits character
 */
 
-#include "my.h"
+#include <stddef.h>
 
 int my_str_isnum(char const *str)
 {

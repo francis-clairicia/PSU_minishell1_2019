@@ -5,15 +5,18 @@
 ** Copy a string into an another
 */
 
-#include <my.h>
+#include <stddef.h>
+
+int my_strlen(char const *str);
 
 char *my_strcpy(char *dest, char const *src)
 {
     int i = 0;
-    char new_dest[my_strlen(src)];
 
     if (dest == NULL)
-        dest = new_dest;
+        return (NULL);
+    if (src == NULL)
+        return (dest);
     while (src[i] != '\0') {
         dest[i] = src[i];
         i += 1;

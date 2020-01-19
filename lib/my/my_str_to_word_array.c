@@ -22,7 +22,7 @@ static int is_separator(char c, char const *separators)
     return (0);
 }
 
-int get_nb_words(char const *str, char const *separators)
+static int get_nb_words(char const *str, char const *separators)
 {
     int nb = 1;
     int i = 0;
@@ -40,7 +40,7 @@ int get_nb_words(char const *str, char const *separators)
     return (nb);
 }
 
-int get_index_end_word(char const *str, char const *separators)
+static int get_index_end_word(char const *str, char const *separators)
 {
     int i = 0;
 
@@ -53,7 +53,7 @@ int get_index_end_word(char const *str, char const *separators)
     return (i);
 }
 
-void generate_array(char **array, char const *str,
+static void generate_array(char **array, char const *str,
     int nb_words, char const *separators)
 {
     int i = 0;

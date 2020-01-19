@@ -5,7 +5,11 @@
 ** Put a number into a string
 */
 
-#include <my.h>
+#include <stdlib.h>
+
+int my_nbr_len(long nb);
+
+char *my_revstr(char const *str);
 
 char *my_nbr_to_str(int nb)
 {

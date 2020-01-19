@@ -5,7 +5,7 @@
 ** Find a char into a string
 */
 
-#include <my.h>
+#include <stddef.h>
 
 int my_find_char(char const *str, char c)
 {

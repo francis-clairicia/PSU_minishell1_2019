@@ -5,7 +5,7 @@
 ** test if a string has only uppercase alphabethical character
 */
 
-#include <my.h>
+#include <stddef.h>
 
 int my_str_isupper(char const *str)
 {

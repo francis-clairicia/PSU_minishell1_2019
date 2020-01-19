@@ -5,7 +5,7 @@
 ** test if a string has only printable character
 */
 
-#include <my.h>
+#include <stddef.h>
 
 int my_str_isprintable(char const *str)
 {

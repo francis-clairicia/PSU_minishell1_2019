@@ -7,6 +7,8 @@
 
 #include "mylist.h"
 
+int my_strlen(char const *str);
+
 static int get_str_size(list_t *begin, char separator)
 {
     int str_size = 0;

@@ -5,8 +5,6 @@
 ** Verify if a number is prime
 */
 
-#include <my.h>
-
 int my_is_prime(int nb)
 {
     int denominateur = 2;

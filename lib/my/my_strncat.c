@@ -5,14 +5,16 @@
 ** Append string into another
 */
 
-#include <my.h>
+#include <stddef.h>
+
+int my_strlen(char const *str);
 
 char *my_strncat(char *dest, char const *src, int n)
 {
     int i = 0;
     int len = my_strlen(dest);
 
-    if (len < 0)
+    if (dest == NULL)
         return (NULL);
     if (src == NULL)
         return (dest);

@@ -2,12 +2,12 @@
 ** EPITECH PROJECT, 2019
 ** PSU_minishell1_2019
 ** File description:
-** exit_builtin_command.c
+** exit.c
 */
 
 #include "minishell.h"
 
-int exit_builtin_command(char **av, char ***envp)
+int exit_builtin_command(char * const *av, char ***envp)
 {
     int ac = my_array_len(av);
 

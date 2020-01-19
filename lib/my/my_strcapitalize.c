@@ -5,9 +5,9 @@
 ** Capitalize words
 */
 
-#include <my.h>
+#include <stddef.h>
 
-char *cap(char *str, int i)
+static char *cap(char *str, int i)
 {
     if ((i == 0) && (str[i] >= 'a') && (str[i] <= 'z')) {
         str[i] -= 32;

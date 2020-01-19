@@ -5,7 +5,7 @@
 ** Display number entered as parameter
 */
 
-#include "my.h"
+int my_putchar(char c);
 
 int my_put_nbr(long nb)
 {

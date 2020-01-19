@@ -5,9 +5,15 @@
 ** Get a number in a string
 */
 
-#include <my.h>
+#include <stddef.h>
 
-int index_of_first_digit_base(char const *str, char const *base)
+int my_find_char(char const *str, char c);
+
+int my_strlen(char const *str);
+
+int negative_nb(char const *str, int index_first);
+
+static int index_of_first_digit_base(char const *str, char const *base)
 {
     int i = 0;
     int len = my_strlen(str);

@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2019
 ** PSU_minishell1_2019
 ** File description:
-** setenv_builtin_command.c
+** setenv.c
 */
 
 #include "minishell.h"
@@ -26,13 +26,16 @@ static int valid_arguments(char const *variable)
     return (1);
 }
 
-static void add_variable(char ***envp, char const *variable, char const *value)
+static int add_variable(char ***envp, char const *variable, char const *value)
 {
     int i = 0;
     char **new_envp = malloc(sizeof(char *) * (my_array_len(*envp) + 2));
 
-    if (new_envp == NULL)
-        return;
+    if (new_envp == NULL) {
+        free(*envp);
+        *envp = NULL;
+        return (-1);
+    }
     if ((*envp) != NULL) {
         while ((*envp)[i] != NULL) {
             new_envp[i] = (*envp)[i];
@@ -43,9 +46,10 @@ static void add_variable(char ***envp, char const *variable, char const *value)
     new_envp[i + 1] = NULL;
     free(*envp);
     *envp = new_envp;
+    return (0);
 }
 
-int setenv_builtin_command(char **av, char ***envp)
+int setenv_builtin_command(char * const *av, char ***envp)
 {
     int ac = my_array_len(av);
     int var_index = 0;
@@ -54,16 +58,14 @@ int setenv_builtin_command(char **av, char ***envp)
         return (env_builtin_command((char *[]){"env", NULL}, envp));
     else if (ac > 3) {
         print_error("setenv", "Too many arguments");
-        return (0);
+        return (-1);
     }
-    if (!valid_arguments(av[1]))
-        return (0);
+    if (envp == NULL || !valid_arguments(av[1]))
+        return (-1);
     var_index = find_var_env(*envp, av[1]);
-    if (var_index < 0) {
-        add_variable(envp, av[1], av[2]);
-    } else {
-        free((*envp)[var_index]);
-        (*envp)[var_index] = create_variable(av[1], av[2]);;
-    }
+    if (var_index < 0)
+        return (add_variable(envp, av[1], av[2]));
+    free((*envp)[var_index]);
+    (*envp)[var_index] = create_variable(av[1], av[2]);
     return (0);
 }

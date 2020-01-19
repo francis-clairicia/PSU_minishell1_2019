@@ -5,8 +5,6 @@
 ** Returns the power of a number
 */
 
-#include "my.h"
-
 int my_compute_power_rec(int nb, int p)
 {
     int power_down = 0;

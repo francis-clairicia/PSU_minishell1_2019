@@ -15,7 +15,7 @@ Test(env_builtin_command, print_environment)
 
     cr_redirect_stdout();
     minishell("setenv YO 2", &envp);
-    minishell("env", &envp);
+    cr_expect_eq(minishell("env", &envp), 0);
     cr_expect_stdout_eq_str("YO=2\n");
     my_free_word_array(envp);
 }
@@ -23,7 +23,7 @@ Test(env_builtin_command, print_environment)
 Test(env_builtin_command, handle_args)
 {
     cr_redirect_stderr();
-    minishell("env -i", NULL);
+    cr_expect_eq(minishell("env -i", NULL), -1);
     cr_expect_stderr_eq_str("env: Too many arguments.\n");
 }
 
@@ -31,5 +31,5 @@ Test(env_builtin_command, handle_null_env)
 {
     char **envp = NULL;
 
-    cr_assert_eq(minishell("env", &envp), 0);
+    cr_assert_eq(minishell("env", &envp), -1);
 }

@@ -13,7 +13,7 @@ static char *free_and_returns(char **word_array, char *str)
     return (str);
 }
 
-char *find_binary_in_path(char const *binary, char **envp)
+char *find_binary_in_path(char const *binary, char * const *envp)
 {
     char *path_variable = get_var_value(envp, find_var_env(envp, "PATH"));
     char **path_list = my_str_to_word_array(path_variable, ":");

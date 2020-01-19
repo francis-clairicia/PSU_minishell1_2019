@@ -7,13 +7,14 @@
 
 #include "minishell.h"
 
-static int launch_process(char const *binary, char **argv, char **envp)
+static int launch_process(char const *binary, char * const *argv,
+    char * const *envp)
 {
     int wstatus = 0;
     int child_pid = 0;
 
     if (binary == NULL)
-        return (0);
+        return (-1);
     child_pid = fork();
     if (child_pid == 0) {
         if (execve(binary, argv, envp) < 0)
@@ -21,10 +22,10 @@ static int launch_process(char const *binary, char **argv, char **envp)
         return (1);
     }
     if (waitpid(child_pid, &wstatus, 0) < 0)
-        return (0);
+        return (-1);
     if (WIFSIGNALED(wstatus) && WTERMSIG(wstatus) != SIGINT)
         print_signal(WTERMSIG(wstatus));
-    return (0);
+    return ((WEXITSTATUS(wstatus) == 0) ? 0 : -1);
 }
 
 static int exec_shell_command(char const *command_line, char ***envp)

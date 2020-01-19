@@ -12,15 +12,17 @@
 Test(minishell, launch_command_like_an_another_shell)
 {
     int status = 0;
+    char **envp = copy_environment(DEFAULT_ENVIRONMENT);
 
     cr_redirect_stdout();
-    status = minishell("ls main.c", &__environ);
+    status = minishell("ls main.c", &envp);
     if (status == 1) {
         cr_expect_eq(kill(getpid(), SIGCHLD), 0);
     } else {
         cr_expect_eq(status, 0);
         cr_expect_stdout_eq_str("main.c\n");
     }
+    my_free_word_array(envp);
 }
 
 Test(minishell, handle_null_command)

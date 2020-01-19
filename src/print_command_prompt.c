@@ -7,7 +7,7 @@
 
 #include "minishell.h"
 
-static void print_user(char **envp)
+static void print_user(char * const *envp)
 {
     char *user = get_var_value(envp, find_var_env(envp, "USER"));
     char *hostname = get_var_value(envp, find_var_env(envp, "HOSTNAME"));
@@ -23,7 +23,7 @@ static void print_user(char **envp)
         write(1, hostname, dot);
 }
 
-static void print_current_directory(char const *cwd, char **envp)
+static void print_current_directory(char const *cwd, char * const *envp)
 {
     char *home_path = get_var_value(envp, find_var_env(envp, "HOME"));
     int len_home_path = my_strlen(home_path);
@@ -43,7 +43,7 @@ static void print_current_directory(char const *cwd, char **envp)
     my_putstr(cwd);
 }
 
-void print_command_prompt(char const *cwd, char **envp)
+void print_command_prompt(char const *cwd, char * const *envp)
 {
     my_putstr("[");
     print_user(envp);

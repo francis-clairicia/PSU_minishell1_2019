@@ -33,7 +33,7 @@ Test(cd_builtin_command, move_to_home_path_when_no_args)
     char *home_path = get_var_value(envp, home_index);
 
     cr_assert_not_null(getcwd(save_actual_dir, 4097));
-    minishell("cd", &envp);
+    cr_expect_eq(minishell("cd", &envp), 0);
     cr_expect_str_eq(getcwd(current_dir, 4097), home_path);
     chdir(save_actual_dir);
 }
@@ -43,7 +43,7 @@ Test(cd_builtin_command, print_error_when_too_many_arguments_are_given)
     char **envp = DEFAULT_ENVIRONMENT;
 
     cr_redirect_stderr();
-    minishell("cd / ~/Downloads", &envp);
+    cr_expect_eq(minishell("cd / ~/Downloads", &envp), -1);
     cr_expect_stderr_eq_str("cd: Too many arguments.\n");
 }
 
@@ -52,19 +52,17 @@ Test(cd_builtin_command, handle_null_value)
     char **envp = NULL;
     char *cmd[] = {"cd", NULL};
 
-    cr_expect_eq(cd_builtin_command(cmd, NULL), 0);
-    cr_expect_eq(cd_builtin_command(cmd, &envp), 0);
+    cr_expect_eq(cd_builtin_command(cmd, NULL), -1);
+    cr_expect_eq(cd_builtin_command(cmd, &envp), -1);
 }
 
 Test(cd_builtin_command, handle_invalid_or_non_existing_home_folder)
 {
-    char **envp = malloc(sizeof(char *));
+    char **envp = NULL;
 
     cr_redirect_stderr();
-    cr_assert_not_null(envp);
-    envp[0] = NULL;
-    cr_expect_eq(minishell("cd", &envp), 0);
+    cr_expect_eq(minishell("cd", &envp), -1);
     minishell("setenv HOME unknown_dir", &envp);
-    minishell("cd", &envp);
+    cr_expect_eq(minishell("cd", &envp), -1);
     cr_expect_stderr_eq_str("unknown_dir: No such file or directory.\n");
 }

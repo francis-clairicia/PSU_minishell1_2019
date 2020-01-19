@@ -8,12 +8,7 @@
 #ifndef HEADER_MY_H
 #define HEADER_MY_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-
 int my_putchar(char c);
-int my_isneg(int nb);
 int my_put_nbr(long nb);
 int my_putnbr_base(int nbr, char const *base);
 void my_swap(int *a, int *b);
@@ -56,21 +51,10 @@ char *my_nbr_to_str(int nb);
 int my_nbr_len(long nb);
 int my_find_char(char const *str, char c);
 char *convert_base(char const *nbr, char const *base_from, char const *base_to);
+char *convert_to_base(int nbr, char const *base);
 char *open_file(char const *filepath, int (*error)(char const *));
 int get_next_line(char **line, int fd);
-
-int char_is_alphanum(char c);
-int index_of_first_digit(char const *str);
-int index_of_first_digit_base(char const *str, char const *base);
-int negative_nb(char const *str, int index_first);
-void increase_address(char *address);
-void print_hexa(char const *str, int min, int size);
-void print_string(char const *str, int min, int size);
-void convert_to_hexa(char c, char *str);
-void print_non_printable_char(char c);
-int test_array_int(int *array, int size);
-void sort_array_int(int *array, int size);
-void str_to_compare(char const *str, char *str_cmp, int i, int len_to_find);
-char *convert_to_base(int nbr, char const *base);
+char *join_path(char const *path_1, char const *path_2);
+char *my_memset(char *buffer, char c, long size);
 
 #endif

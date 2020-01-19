@@ -5,7 +5,7 @@
 ** my_str_isalphanum.c
 */
 
-#include "my.h"
+#include <stddef.h>
 
 int char_is_alphanum(char c)
 {

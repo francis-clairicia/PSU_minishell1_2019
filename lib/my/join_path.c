@@ -1,11 +1,13 @@
 /*
 ** EPITECH PROJECT, 2019
-** PSU_my_ls_2019
+** My_Lib_C
 ** File description:
 ** join_path.c
 */
 
-#include "minishell.h"
+#include <stdlib.h>
+
+int my_strlen(char const *str);
 
 static int get_path_size(char const *path_1, char const *path_2, int *slash)
 {

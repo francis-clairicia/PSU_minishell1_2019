@@ -5,9 +5,9 @@
 ** Sort integers inside an array
 */
 
-#include <my.h>
+#include <stddef.h>
 
-int test_array_int(int *array, int size)
+static int test_array_int(int *array, int size)
 {
     int i = 1;
     int test_result = 0;
@@ -20,7 +20,7 @@ int test_array_int(int *array, int size)
     return (test_result);
 }
 
-void sort_array_int(int *array, int size)
+static void sort_array_int(int *array, int size)
 {
     int i = 1;
     int stock = 0;

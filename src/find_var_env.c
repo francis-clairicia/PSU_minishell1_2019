@@ -7,7 +7,7 @@
 
 #include "minishell.h"
 
-int find_var_env(char **envp, char const *var)
+int find_var_env(char * const *envp, char const *var)
 {
     int len_var = my_strlen(var);
     int i = 0;

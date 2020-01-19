@@ -9,7 +9,6 @@ SRC	=	my_put_nbr.c				\
 		my_strcpy.c					\
 		my_putchar.c				\
 		my_showstr.c				\
-		my_isneg.c					\
 		my_sort_int_array.c			\
 		my_str_isupper.c			\
 		my_strcmp.c					\
@@ -39,9 +38,9 @@ SRC	=	my_put_nbr.c				\
 		my_free_word_array.c		\
 		my_array_len.c				\
 		my_strdup.c					\
-		my_swap.c					\
-		my_strdup.c					\
+		my_strndup.c				\
 		my_strdup_char.c			\
+		my_swap.c					\
 		my_find_char.c				\
 		convert_base.c				\
 		my_putnbr_base.c			\
@@ -60,7 +59,9 @@ SRC	=	my_put_nbr.c				\
 		my_nbr_to_str.c				\
 		my_nbr_len.c				\
 		open_file.c					\
-		get_next_line.c
+		get_next_line.c				\
+		join_path.c					\
+		my_memset.c
 
 CFLAGS	=	-I. -Wall -Wextra -Werror
 

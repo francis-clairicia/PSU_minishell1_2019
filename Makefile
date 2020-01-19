@@ -7,24 +7,22 @@
 
 MAIN		=	main.c
 
-SRC_DIR		=	src
-
-SRC			=	$(SRC_DIR)/minishell.c					\
-				$(SRC_DIR)/print_command_prompt.c		\
-				$(SRC_DIR)/get_path_to_executable.c		\
-				$(SRC_DIR)/find_binary_in_path.c		\
-				$(SRC_DIR)/find_var_env.c				\
-				$(SRC_DIR)/get_var_value.c				\
-				$(SRC_DIR)/create_variable.c			\
-				$(SRC_DIR)/join_path.c					\
-				$(SRC_DIR)/error.c						\
-				$(SRC_DIR)/sigint_handler.c				\
-				$(SRC_DIR)/builtin_functions.c			\
-				$(SRC_DIR)/cd_builtin_command.c			\
-				$(SRC_DIR)/env_builtin_command.c		\
-				$(SRC_DIR)/exit_builtin_command.c		\
-				$(SRC_DIR)/setenv_builtin_command.c		\
-				$(SRC_DIR)/unsetenv_builtin_command.c
+SRC			=	src/minishell.c					\
+				src/print_command_prompt.c		\
+				src/copy_environment.c			\
+				src/get_path_to_executable.c	\
+				src/find_binary_in_path.c		\
+				src/find_var_env.c				\
+				src/get_var_value.c				\
+				src/create_variable.c			\
+				src/error.c						\
+				src/sigint_handler.c			\
+				src/builtin_functions.c			\
+				src/builtin/cd.c				\
+				src/builtin/env.c				\
+				src/builtin/exit.c				\
+				src/builtin/setenv.c			\
+				src/builtin/unsetenv.c
 
 CFLAGS		=	-I./include/ -Wall -Wextra
 

@@ -5,7 +5,7 @@
 ** Free data in list
 */
 
-#include <mylist.h>
+#include "mylist.h"
 
 void my_free_list(list_t **list, int free_ptr)
 {

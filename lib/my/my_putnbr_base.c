@@ -5,8 +5,11 @@
 ** Base
 */
 
-#include <my.h>
-#include <mylist.h>
+#include <stdlib.h>
+
+int my_putstr(char const *str);
+
+char *convert_to_base(int nbr, char const *base);
 
 int my_putnbr_base(int nbr, char const *base)
 {

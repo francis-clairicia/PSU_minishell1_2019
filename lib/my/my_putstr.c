@@ -5,7 +5,10 @@
 ** Display a string
 */
 
-#include "my.h"
+#include <unistd.h>
+#include <stddef.h>
+
+int my_strlen(char const *str);
 
 static int putstr_in_fd(int fd, char const *str)
 {
@@ -16,10 +19,10 @@ static int putstr_in_fd(int fd, char const *str)
 
 int my_putstr(char const *str)
 {
-    return (putstr_in_fd(STDOUT_FILENO, str));
+    return (putstr_in_fd(1, str));
 }
 
 int my_putstr_error(char const *str)
 {
-    return (putstr_in_fd(STDERR_FILENO, str));
+    return (putstr_in_fd(2, str));
 }

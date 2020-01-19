@@ -5,8 +5,6 @@
 ** Lenght ofa number
 */
 
-#include <my.h>
-
 int my_nbr_len(long nb)
 {
     int len = 1;

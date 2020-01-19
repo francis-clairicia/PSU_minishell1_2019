@@ -5,7 +5,7 @@
 ** test if a string has only lowercase alphabethical character
 */
 
-#include <my.h>
+#include <stddef.h>
 
 int my_str_islower(char const *str)
 {

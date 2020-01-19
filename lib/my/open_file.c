@@ -5,10 +5,11 @@
 ** open_file.c
 */
 
+#include <stdlib.h>
+#include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#include "my.h"
 
 char *open_file(char const *filepath, int (*error)(char const *))
 {
@@ -22,7 +23,7 @@ char *open_file(char const *filepath, int (*error)(char const *))
     buffer = malloc(sizeof(char) * (statbuf.st_size + 1));
     if (buffer != NULL) {
         size = read(fd, buffer, statbuf.st_size);
-        buffer[size] = 0;
+        buffer[size] = '\0';
     }
     close(fd);
     if (error(buffer)) {

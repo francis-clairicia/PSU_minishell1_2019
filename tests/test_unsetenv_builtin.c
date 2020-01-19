@@ -19,12 +19,13 @@ Test(unsetenv_builtin_command, remove_var_form_environment)
     cr_expect_neq(find_var_env(envp, "YO"), -1);
     cr_expect_neq(find_var_env(envp, "USER"), -1);
     cr_expect_neq(find_var_env(envp, "DISPLAY"), -1);
-    minishell("unsetenv YO USER DISPLAY", &envp);
+    cr_expect_eq(minishell("unsetenv YO USER DISPLAY", &envp), 0);
     cr_assert_not_null(envp);
     cr_expect_null(envp[0]);
     cr_expect_eq(find_var_env(envp, "YO"), -1);
     cr_expect_eq(find_var_env(envp, "USER"), -1);
     cr_expect_eq(find_var_env(envp, "DISPLAY"), -1);
+    cr_expect_eq(minishell("unsetenv DISPLAY", &envp), 0);
     my_free_word_array(envp);
 }
 
@@ -32,13 +33,13 @@ Test(unsetenv_builtin_command, cant_remove_from_null_env)
 {
     char **envp = NULL;
 
-    cr_expect_eq(minishell("unsetenv VAR", NULL), 0);
-    cr_expect_eq(minishell("unsetenv VAR", &envp), 0);
+    cr_expect_eq(minishell("unsetenv VAR", NULL), -1);
+    cr_expect_eq(minishell("unsetenv VAR", &envp), -1);
 }
 
 Test(unsetenv_builtin_command, print_error_when_no_arg_is_given)
 {
     cr_redirect_stderr();
-    cr_expect_eq(minishell("unsetenv", NULL), 0);
+    cr_expect_eq(minishell("unsetenv", NULL), -1);
     cr_expect_stderr_eq_str("unsetenv: Too few arguments.\n");
 }

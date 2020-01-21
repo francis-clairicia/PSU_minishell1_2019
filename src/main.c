@@ -46,10 +46,8 @@ static int command_prompt(char **line, int stop_shell)
     }
     bind_sigint_signal(PROMPT);
     print_command_prompt(getcwd(current_directory, 4097), DEFAULT_ENVIRONMENT);
-    if (!get_next_line(line, 0)) {
-        my_putstr("exit\n");
-        return (0);
-    }
+    if (!get_next_line(line, 0))
+        *line = my_strdup("exit");
     if (my_strlen(*line) == 0)
         return (command_prompt(line, stop_shell));
     return (1);

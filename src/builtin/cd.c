@@ -23,22 +23,46 @@ static int go_to_default_home_path(char * const *envp)
     return (1);
 }
 
+static int change_working_directory(char const *arg, char * const *envp)
+{
+    int go_to_old_dir = !my_strcmp(arg, "-");
+    char *old_pwd = get_var_value(envp, find_var_env(envp, "OLDPWD"));
+
+    if (!go_to_old_dir && chdir(arg) < 0) {
+        print_error(arg, strerror(errno));
+        return (0);
+    } else if (go_to_old_dir) {
+        if (old_pwd == NULL) {
+            print_error("", strerror(ENOENT));
+            return (0);
+        } else if (chdir(old_pwd) < 0) {
+            print_error(old_pwd, strerror(errno));
+            return (0);
+        }
+        my_printf("%s\n", old_pwd);
+    }
+    return (1);
+}
+
 int cd_builtin_command(char * const *av, char ***envp)
 {
     int ac = my_array_len(av);
+    char actual_dir[4097];
+    char *args_for_setenv[] = {"setenv", "OLDPWD", actual_dir, NULL};
 
     if (ac > 2) {
         print_error("cd", "Too many arguments");
         return (-1);
     }
-    if (envp == NULL)
+    if (envp == NULL || getcwd(actual_dir, 4097) == NULL)
         return (-1);
     if (ac == 1) {
         if (!go_to_default_home_path(*envp))
             return (-1);
-    } else if (chdir(av[1]) < 0) {
-        print_error(av[1], strerror(errno));
-        return (-1);
+    } else {
+        if (!change_working_directory(av[1], *envp))
+            return (-1);
     }
+    setenv_builtin_command(args_for_setenv, envp);
     return (0);
 }

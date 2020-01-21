@@ -5,7 +5,7 @@
 ## Makefile
 ##
 
-MAIN		=	main.c
+MAIN		=	src/main.c
 
 SRC			=	src/minishell.c					\
 				src/print_command_prompt.c		\

@@ -21,8 +21,7 @@ static int launch_process(char const *binary, char * const *argv,
             print_error(argv[0], strerror(errno));
         return (1);
     }
-    if (waitpid(child_pid, &wstatus, 0) < 0)
-        return (-1);
+    waitpid(child_pid, &wstatus, 0);
     if (WIFSIGNALED(wstatus) && WTERMSIG(wstatus) != SIGINT)
         print_signal(WTERMSIG(wstatus));
     return ((WEXITSTATUS(wstatus) == 0) ? 0 : -1);

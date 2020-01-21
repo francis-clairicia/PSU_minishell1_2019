@@ -41,9 +41,9 @@ Test(get_path_to_executable, print_error_when_permission_denied)
     char *path = NULL;
 
     cr_redirect_stderr();
-    path = get_path_to_executable("./main.c", DEFAULT_ENVIRONMENT);
+    path = get_path_to_executable("./Makefile", DEFAULT_ENVIRONMENT);
     cr_assert_null(path);
-    cr_assert_stderr_eq_str("./main.c: Permission denied.\n");
+    cr_assert_stderr_eq_str("./Makefile: Permission denied.\n");
 }
 
 Test(get_path_to_executable, print_error_when_its_a_directory)

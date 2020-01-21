@@ -63,6 +63,6 @@ Test(setenv_builtin_command, print_error_when_too_many_args_are_given)
     char err[] = "setenv: Too many arguments.\n";
 
     cr_redirect_stderr();
-    minishell("setenv VAR value1 value2", &envp);
+    cr_expect_eq(minishell("setenv VAR value1 value2", &envp), -1);
     cr_expect_stderr_eq_str(err);
 }

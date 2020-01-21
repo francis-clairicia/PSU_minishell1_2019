@@ -17,6 +17,7 @@
 #include <errno.h>
 #include <unistd.h>
 #include "my.h"
+#include "my_printf.h"
 
 int kill(pid_t pid, int sig);
 

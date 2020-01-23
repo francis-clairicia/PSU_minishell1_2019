@@ -48,7 +48,8 @@ int cd_builtin_command(char * const *av, char ***envp)
 {
     int ac = my_array_len(av);
     char actual_dir[4097];
-    char *args_for_setenv[] = {"setenv", "OLDPWD", actual_dir, NULL};
+    char *set_old_pwd[] = {"setenv", "OLDPWD", actual_dir, NULL};
+    char *set_new_pwd[] = {"setenv", "PWD", actual_dir, NULL};
 
     if (ac > 2) {
         print_error("cd", "Too many arguments");
@@ -56,13 +57,12 @@ int cd_builtin_command(char * const *av, char ***envp)
     }
     if (envp == NULL || getcwd(actual_dir, 4097) == NULL)
         return (-1);
-    if (ac == 1) {
-        if (!go_to_default_home_path(*envp))
-            return (-1);
-    } else {
-        if (!change_working_directory(av[1], *envp))
-            return (-1);
-    }
-    setenv_builtin_command(args_for_setenv, envp);
+    if (ac == 1 && !go_to_default_home_path(*envp))
+        return (-1);
+    else if (ac > 1 && !change_working_directory(av[1], *envp))
+        return (-1);
+    setenv_builtin_command(set_old_pwd, envp);
+    getcwd(actual_dir, 4097);
+    setenv_builtin_command(set_new_pwd, envp);
     return (0);
 }

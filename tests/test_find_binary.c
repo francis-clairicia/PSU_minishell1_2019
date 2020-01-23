@@ -14,7 +14,8 @@ Test(find_binary_in_path, find_out_a_binary_in_path_environment)
     char *path = find_binary_in_path("ls", DEFAULT_ENVIRONMENT);
 
     cr_assert_not_null(path);
-    cr_expect_str_eq(path, "/usr/bin/ls");
+    cr_expect(my_strcmp(path, "/usr/bin/ls") == 0
+        || my_strcmp(path, "/bin/ls") == 0);;
     free(path);
 }
 

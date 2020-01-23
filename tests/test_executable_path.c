@@ -16,7 +16,8 @@ Test(get_path_to_executable, find_out_the_path_of_a_binary)
 
     cr_assert_not_null(path);
     cr_assert_not_null(path_2);
-    cr_expect_str_eq(path, "/usr/bin/ls");
+    cr_expect(my_strcmp(path, "/usr/bin/ls") == 0
+        || my_strcmp(path, "/bin/ls") == 0);
     cr_expect_str_eq(path_2, "./mysh");
     free(path);
     free(path_2);

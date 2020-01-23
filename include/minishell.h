@@ -41,7 +41,7 @@ struct builtin
 int minishell(char const *command_line, char ***envp);
 void print_command_prompt(char const *cwd, char * const *envp);
 char **copy_environment(char * const *envp);
-char *get_path_to_executable(char const *binary, char * const*envp);
+char *get_path_to_executable(char const *binary, char * const *envp);
 char *join_path(char const *path_1, char const *path_2);
 char *find_binary_in_path(char const *binary, char * const *envp);
 int find_var_env(char * const *envp, char const *var);

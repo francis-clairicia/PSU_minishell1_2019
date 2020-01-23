@@ -22,9 +22,11 @@ static int launch_process(char const *binary, char * const *argv,
         return (1);
     }
     waitpid(child_pid, &wstatus, 0);
-    if (WIFSIGNALED(wstatus) && WTERMSIG(wstatus) != SIGINT)
+    if (WIFSIGNALED(wstatus) && WTERMSIG(wstatus) != SIGINT) {
         print_signal(WTERMSIG(wstatus));
-    return ((WEXITSTATUS(wstatus) == 0) ? 0 : -1);
+        return (-1);
+    }
+    return (0);
 }
 
 static int exec_shell_command(char const *command_line, char ***envp)

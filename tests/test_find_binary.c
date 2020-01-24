@@ -15,7 +15,7 @@ Test(find_binary_in_path, find_out_a_binary_in_path_environment)
 
     cr_assert_not_null(path);
     cr_expect(my_strcmp(path, "/usr/bin/ls") == 0
-        || my_strcmp(path, "/bin/ls") == 0);;
+        || my_strcmp(path, "/bin/ls") == 0);
     free(path);
 }
 

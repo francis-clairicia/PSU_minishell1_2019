@@ -22,7 +22,11 @@ SRC			=	src/minishell.c					\
 				src/builtin/env.c				\
 				src/builtin/exit.c				\
 				src/builtin/setenv.c			\
-				src/builtin/unsetenv.c
+				src/builtin/unsetenv.c			\
+				src/parsing/parse_command_line.c\
+				src/parsing/create_arg.c		\
+				src/parsing/find_quote.c		\
+				src/parsing/remove_quotes.c
 
 CFLAGS		=	-I./include/ -Wall -Wextra
 

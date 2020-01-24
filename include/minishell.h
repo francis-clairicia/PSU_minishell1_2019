@@ -49,12 +49,16 @@ char *get_var_value(char * const *envp, int index);
 char *create_variable(char const *variable, char const *value);
 builtin_function_t is_builtin(char * const *cmd);
 
+char **parse_command_line(char const *command_line);
+int find_quote(char * const *command, char *quote);
+void remove_quotes(char **command, int arg, char quote);
+void create_arg(char **command, int first, int last, char quote);
+
 int cd_builtin_command(char * const *av, char ***envp);
 int env_builtin_command(char * const *av, char ***envp);
 int exit_builtin_command(char * const *av, char ***envp);
 int setenv_builtin_command(char * const *av, char ***envp);
 int unsetenv_builtin_command( char * const *av, char ***envp);
-
 
 sighandler_t bind_sigint_signal(int func);
 void sigint_handler_for_prompt(int signum);

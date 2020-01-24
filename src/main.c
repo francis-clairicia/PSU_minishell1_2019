@@ -19,6 +19,7 @@ static int print_help(void)
 static int set_shell_env(char ***envp, char const *binary_name)
 {
     char current_dir[4097];
+    int slash = my_find_char(binary_name, '/');
     char *cmd[] = {"setenv", "SHELL", "", NULL};
 
     if (envp == NULL || *envp == NULL)
@@ -26,7 +27,7 @@ static int set_shell_env(char ***envp, char const *binary_name)
     if (find_var_env(*envp, "SHELL") < 0)
         return (1);
     if (binary_name[0] != '/')
-        cmd[2] = join_path(getcwd(current_dir, 4097), &binary_name[2]);
+        cmd[2] = join_path(getcwd(current_dir, 4097), &binary_name[slash + 1]);
     else
         cmd[2] = my_strdup(binary_name);
     setenv_builtin_command(cmd, envp);
@@ -49,7 +50,7 @@ static int command_prompt(char **line, int stop_shell)
     if (!get_next_line(line, 0))
         *line = my_strdup("exit");
     if (my_strlen(*line) == 0)
-        return (command_prompt(line, stop_shell));
+        return (command_prompt(line, -1));
     return (1);
 }
 

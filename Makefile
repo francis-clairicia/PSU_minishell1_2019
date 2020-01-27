@@ -7,25 +7,25 @@
 
 MAIN		=	src/main.c
 
-SRC			=	src/minishell.c					\
-				src/print_command_prompt.c		\
-				src/copy_environment.c			\
-				src/get_path_to_executable.c	\
-				src/find_binary_in_path.c		\
-				src/find_var_env.c				\
-				src/get_var_value.c				\
-				src/create_variable.c			\
-				src/error.c						\
-				src/sigint_handler.c			\
-				src/builtin_functions.c			\
-				src/builtin/cd.c				\
-				src/builtin/env.c				\
-				src/builtin/exit.c				\
-				src/builtin/setenv.c			\
-				src/builtin/unsetenv.c			\
-				src/parsing/parse_command_line.c\
-				src/parsing/create_arg.c		\
-				src/parsing/find_quote.c		\
+SRC			=	src/minishell.c						\
+				src/print_command_prompt.c			\
+				src/copy_environment.c				\
+				src/get_path_to_executable.c		\
+				src/find_binary_in_path.c			\
+				src/find_var_env.c					\
+				src/get_var_value.c					\
+				src/create_variable.c				\
+				src/error.c							\
+				src/sigint_handler.c				\
+				src/builtin_functions.c				\
+				src/builtin/cd.c					\
+				src/builtin/env.c					\
+				src/builtin/exit.c					\
+				src/builtin/setenv.c				\
+				src/builtin/unsetenv.c				\
+				src/parsing/parse_command_line.c	\
+				src/parsing/create_arg.c			\
+				src/parsing/find_quote.c			\
 				src/parsing/remove_quotes.c
 
 CFLAGS		=	-I./include/ -Wall -Wextra

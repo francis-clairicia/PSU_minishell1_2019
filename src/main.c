@@ -40,7 +40,6 @@ int main(int ac, char **av)
     char *cmd = NULL;
     char **envp = NULL;
     int stop_shell = 0;
-    int output = 0;
 
     if (ac > 1 && my_strcmp(av[1], "-h") == 0)
         return (print_help());
@@ -51,9 +50,7 @@ int main(int ac, char **av)
         stop_shell = minishell(cmd, &envp);
         if (envp == NULL)
             stop_shell = 1;
-        if (stop_shell < 0)
-            output = 84;
     }
     my_free_word_array(envp);
-    return (output);
+    return (0);
 }

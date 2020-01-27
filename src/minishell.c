@@ -18,12 +18,12 @@ static int launch_process(char const *binary, char * const *argv,
     child_pid = fork();
     if (child_pid == 0) {
         if (execve(binary, argv, envp) < 0)
-            print_error(argv[0], strerror(errno));
+            print_error(argv[0], error_exec(errno));
         return (1);
     }
     waitpid(child_pid, &wstatus, 0);
     if (WIFSIGNALED(wstatus) && WTERMSIG(wstatus) != SIGINT) {
-        print_signal(WTERMSIG(wstatus));
+        print_signal(wstatus);
         return (-1);
     }
     return (0);

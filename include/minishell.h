@@ -26,6 +26,10 @@ typedef __sighandler_t sighandler_t;
 
 #define DEFAULT_ENVIRONMENT __environ
 
+#ifndef WCOREDUMP
+#define WCOREDUMP(wstatus) __WCOREDUMP(wstatus)
+#endif
+
 enum SIGINT_HANDLER_FUNCTION
 {
     PROMPT,
@@ -66,5 +70,6 @@ void sigint_handler_for_process(int signum);
 
 void print_error(char const *filepath, char const *error);
 void print_signal(int signum);
+char *error_exec(int errnum);
 
 #endif

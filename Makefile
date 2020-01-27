@@ -5,11 +5,11 @@
 ## Makefile
 ##
 
-MAIN		=	src/main.c
+SRC_NO_TEST	=	src/main.c							\
+				src/mysh.c
 
-SRC			=	src/minishell.c						\
+SRC_TEST	=	src/minishell.c						\
 				src/print_command_prompt.c			\
-				src/copy_environment.c				\
 				src/get_path_to_executable.c		\
 				src/find_binary_in_path.c			\
 				src/find_var_env.c					\
@@ -25,14 +25,15 @@ SRC			=	src/minishell.c						\
 				src/builtin/unsetenv.c				\
 				src/parsing/parse_command_line.c	\
 				src/parsing/create_arg.c			\
-				src/parsing/find_quote.c			\
 				src/parsing/remove_quotes.c
+
+SRC			=	$(SRC_NO_TEST) $(SRC_TEST)
 
 CFLAGS		=	-I./include/ -Wall -Wextra
 
 LIB			=	-L./lib -lmy
 
-OBJ			=	$(MAIN:.c=.o) $(SRC:.c=.o)
+OBJ			=	$(SRC:.c=.o)
 
 NAME		=	mysh
 
@@ -47,14 +48,14 @@ $(NAME):	lib $(OBJ)
 
 tests_run:	lib
 	@find . -name "*.gc*" -delete
-	gcc -o unit_tests $(SRC) tests/*.c $(LIB) $(CFLAGS) --coverage -lcriterion
+	gcc -o unit_tests $(SRC_TEST) tests/*.c $(LIB) $(CFLAGS) --coverage -lcriterion
 	./unit_tests
 	rm -f unit_tests test*.gc*
 	mkdir -p coverage
 	mv *.gc* coverage/
 
 debug:	lib
-	gcc -g -o $(NAME) $(MAIN) $(SRC) lib/my/*.c $(CFLAGS)
+	gcc -g -o $(NAME) $(SRC) lib/my/*.c $(CFLAGS)
 
 clean:
 	rm -f $(OBJ)

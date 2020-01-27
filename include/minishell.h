@@ -42,9 +42,9 @@ struct builtin
     builtin_function_t function;
 };
 
+int mysh(void);
 int minishell(char const *command_line, char ***envp);
 void print_command_prompt(char const *cwd, char * const *envp);
-char **copy_environment(char * const *envp);
 char *get_path_to_executable(char const *binary, char * const *envp);
 char *join_path(char const *path_1, char const *path_2);
 char *find_binary_in_path(char const *binary, char * const *envp);
@@ -54,7 +54,6 @@ char *create_variable(char const *variable, char const *value);
 builtin_function_t is_builtin(char * const *cmd);
 
 char **parse_command_line(char const *command_line);
-int find_quote(char * const *command, char *quote);
 void remove_quotes(char **command, int arg, char quote);
 void create_arg(char **command, int first, int last, char quote);
 
@@ -69,7 +68,7 @@ void sigint_handler_for_prompt(int signum);
 void sigint_handler_for_process(int signum);
 
 void print_error(char const *filepath, char const *error);
-void print_signal(int signum);
+void print_signal(int signum, int core_dump);
 char *error_exec(int errnum);
 
 #endif

@@ -37,6 +37,7 @@ SRC		=	my_put_nbr.c				\
 			my_str_to_word_array.c		\
 			my_free_word_array.c		\
 			my_array_len.c				\
+			my_array_cpy.c				\
 			my_strdup.c					\
 			my_strndup.c				\
 			my_strdup_char.c			\

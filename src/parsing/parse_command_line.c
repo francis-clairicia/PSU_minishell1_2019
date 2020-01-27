@@ -24,14 +24,21 @@ static void unify_args(char **command, int arg_with_quote, char quote)
 
 char **parse_command_line(char const *command_line)
 {
-    int arg_with_quote = 0;
+    int i = 0;
     char quote = 0;
     char separators[] = {' ', '\t', '\0'};
     char **command = my_str_to_word_array(command_line, separators);
 
     if (command == NULL)
         return (NULL);
-    while ((arg_with_quote = find_quote(command, &quote)) >= 0)
-        unify_args(command, arg_with_quote, quote);
+    while (command[i] != NULL) {
+        quote = '\'';
+        if (my_find_char(command[i], quote) >= 0)
+            unify_args(command, i, quote);
+        quote = '"';
+        if (my_find_char(command[i], quote) >= 0)
+            unify_args(command, i, quote);
+        i += 1;
+    }
     return (command);
 }

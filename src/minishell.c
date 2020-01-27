@@ -23,7 +23,7 @@ static int launch_process(char const *binary, char * const *argv,
     }
     waitpid(child_pid, &wstatus, 0);
     if (WIFSIGNALED(wstatus) && WTERMSIG(wstatus) != SIGINT) {
-        print_signal(wstatus);
+        print_signal(WTERMSIG(wstatus), WCOREDUMP(wstatus));
         return (-1);
     }
     return (0);

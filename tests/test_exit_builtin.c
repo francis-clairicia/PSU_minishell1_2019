@@ -11,7 +11,7 @@
 
 Test(exit_builtin_command, close_the_minishell)
 {
-    char **envp = copy_environment(DEFAULT_ENVIRONMENT);
+    char **envp = my_array_cpy(DEFAULT_ENVIRONMENT);
 
     cr_redirect_stdout();
     cr_expect_eq(minishell("exit", &envp), 1);

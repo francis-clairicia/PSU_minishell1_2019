@@ -22,15 +22,13 @@ char *error_exec(int errnum)
     return (strerror(errnum));
 }
 
-void print_signal(int wstatus)
+void print_signal(int signum, int core_dump)
 {
-    int signum = WTERMSIG(wstatus);
-
     if (signum == SIGFPE)
         my_putstr_error("Floating exception");
     else
         my_putstr_error(strsignal(signum));
-    if (WCOREDUMP(wstatus))
+    if (core_dump)
         my_putstr_error(" (core dumped)");
     my_putstr_error("\n");
 }

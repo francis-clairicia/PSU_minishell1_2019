@@ -18,7 +18,7 @@ void print_error(char const *filepath, char const *error)
 char *error_exec(int errnum)
 {
     if (errnum == ENOEXEC)
-        return ("Exec format error. Wrong architecture");
+        return ("Exec format error. Wrong Architecture");
     return (strerror(errnum));
 }
 

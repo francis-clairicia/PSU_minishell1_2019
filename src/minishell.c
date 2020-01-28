@@ -67,5 +67,5 @@ int minishell(char const *command_line, char ***envp)
             error = 1;
     }
     my_free_word_array(command);
-    return ((!error) ? status : -1);
+    return ((!error || status == 1) ? status : -1);
 }

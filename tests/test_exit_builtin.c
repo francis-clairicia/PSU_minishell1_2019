@@ -15,8 +15,6 @@ Test(exit_builtin_command, close_the_minishell)
 
     cr_redirect_stdout();
     cr_expect_eq(minishell("exit", &envp), 1);
-    cr_expect_eq(minishell("exit YO", &envp), 1);
-    cr_expect_eq(minishell("exit YO RE", &envp), 1);
-    cr_expect_eq(minishell("exit", NULL), 1);
+    cr_expect_stdout_eq_str("exit\n");
     my_free_word_array(envp);
 }

@@ -50,15 +50,8 @@ Test(sigint_handler_for_prompt, print_again_the_prompt_when_sigint_is_raised)
     output = get_print_output(DEFAULT_ENVIRONMENT);
     cr_assert_not_null(output);
     cr_redirect_stdout();
-    bind_sigint_signal(PROMPT);
+    cr_expect_null(bind_sigint_signal(PROMPT));
     kill(getpid(), SIGINT);
     cr_expect_stdout_eq_str(output);
     chdir(save_dir);
-}
-
-Test(sigint_handler_for_process, kill_the_child_process)
-{
-    cr_redirect_stderr();
-    sigint_handler_for_process(SIGKILL);
-    cr_expect_stderr_eq_str("\n");
 }

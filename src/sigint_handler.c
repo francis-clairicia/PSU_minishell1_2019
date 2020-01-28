@@ -11,16 +11,15 @@ void sigint_handler_for_prompt(int signum)
 {
     char current_directory[4097];
 
-    if (signum != SIGINT)
-        return;
+    (void)signum;
     my_putstr("\n");
     print_command_prompt(getcwd(current_directory, 4097), DEFAULT_ENVIRONMENT);
 }
 
 void sigint_handler_for_process(int signum)
 {
-    if (signum == SIGINT)
-        kill(getpid(), SIGCHLD);
+    (void)signum;
+    kill(getpid(), SIGCHLD);
     my_putstr_error("\n");
 }
 

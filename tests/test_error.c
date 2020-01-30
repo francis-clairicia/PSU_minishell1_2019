@@ -29,6 +29,9 @@ Test(print_signal, print_caught_signal)
 
 Test(error_exec, returns_the_correct_strerror)
 {
-    cr_assert_str_eq(error_exec(ENOENT), "No such file or directory");
-    cr_assert_str_eq(error_exec(ENOEXEC), "Exec format error. Wrong Architecture");
+    char error_file[] = "No such file or directory";
+    char error_format[] = "Exec format error. Wrong Architecture";
+
+    cr_assert_str_eq(error_exec(ENOENT), error_file);
+    cr_assert_str_eq(error_exec(ENOEXEC), error_format);
 }

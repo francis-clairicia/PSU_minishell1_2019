@@ -7,6 +7,19 @@
 
 #include "minishell.h"
 
+static void increase_shlvl(char ***envp)
+{
+    char *actual_value = get_var_value(*envp, find_var_env(*envp, "SHLVL"));
+    int new_value = my_getnbr(actual_value) + 1;
+    char *setenv_cmd[] = {"setenv", "SHLVL", NULL, NULL};
+
+    if (actual_value == NULL)
+        return;
+    setenv_cmd[2] = my_nbr_to_str(new_value);
+    setenv_builtin_command(setenv_cmd, envp);
+    free(setenv_cmd[2]);
+}
+
 static int command_prompt(char **line, int stop_shell)
 {
     char current_directory[4097];
@@ -34,6 +47,7 @@ int mysh(void)
 
     if (envp == NULL)
         return (84);
+    increase_shlvl(&envp);
     while (command_prompt(&cmd, stop_shell)) {
         stop_shell = minishell(cmd, &envp);
         if (envp == NULL)
